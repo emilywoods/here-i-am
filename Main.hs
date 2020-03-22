@@ -49,6 +49,11 @@ sections =
 borderDemos :: [Widget ()]
 borderDemos = mkBorderDemo <$> sections
 
+borderMappings :: [(A.AttrName, V.Attr)]
+borderMappings =
+    [ (B.borderAttr,         fg V.blue)
+    ]
+
 mkBorderDemo :: T.Text -> Widget ()
 mkBorderDemo sectionName =
     updateAttrMap (A.applyAttrMappings borderMappings) $
@@ -59,21 +64,18 @@ mkBorderDemo sectionName =
     C.center $
     txt $ "  " <> sectionName <> "  "
 
-titleAttr :: A.AttrName
-titleAttr = "title"
+introduction :: Widget ()
+introduction =
+    C.center $
+    txt $ "Hello, my name is Emily 👋"
 
-borderMappings :: [(A.AttrName, V.Attr)]
-borderMappings =
-    [ (B.borderAttr,         fg V.yellow)
-    , (titleAttr,            fg V.cyan)
-    ]
 
 ui :: Widget ()
 ui =
     B.hBorderWithLabel (str "Sections")
     <=> hBox borderDemos
     <=> B.hBorder
-    <=> C.center (str "Hello, my name is Emily 👋")
+    <=> introduction
 
 main :: IO ()
 main = M.simpleMain ui
