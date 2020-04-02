@@ -18,6 +18,7 @@ import Brick.Widgets.Core
   , (<+>)
   , vLimit
   , hLimit
+  , vBox
   , padAll
   , txt
   , str
@@ -39,21 +40,10 @@ appEvent d (VtyEvent ev) =
         _ -> M.continue =<< D.handleDialogEvent ev d
 appEvent d _ = M.continue d
 
-sections :: [T.Text]
-sections =
-    [ "Home"
-    , "About"
-    , "Skills"
-    , "Experience"
-    , "Education"
-    , "Projects"
-    , "Objective"
-    ]
-
 theMap :: A.AttrMap
 theMap = A.attrMap V.defAttr
     [ (D.buttonAttr, V.cyan `on` V.black)
-    , (D.buttonSelectedAttr, V.magenta `on` V.black)
+    , (D.buttonSelectedAttr, V.brightMagenta `on` V.black)
     ]
 
 introduction :: Widget ()
@@ -79,15 +69,26 @@ skillsSection =
     C.center $
     txt $ "Skills, Interests, Volunteering."
 
+workExperiences :: [T.Text]
+workExperiences =
+    [ "Jan 2018 - April 2020 Crate.io :: Engineer and SysAdmin\n\nCrate.io is the creator of CrateDB, CrateDB Cloud and Crate Analytics Plaform.\nI worked with Python, Kafka, CrateDB, Kubernetes, Azure, Terraform and Saltstack."
+    , "September 2016 - December 2017 The App Business :: Backend Engineer.\n\nThe App Business works with organisations to build products which make the world better.\nI worked with Java, Ruby, Terraform and AWS and used Behavior and Test Driven Development"
+    , "November 2013 - June 2015 PWF :: Operations Engineer.\n\nPWF is a manufacturer of concentrates.\nI managed capital expenditure and operations-based projects within the manufacturing plant."
+    ]
+
+experienceBlock :: T.Text -> Widget ()
+experienceBlock experienceText =
+    B.border $
+    C.center $ padAll 1 $ txt $ "  " <> experienceText <> "  "
+
 experienceSection :: Widget ()
-experienceSection =
-    C.center $
-    txt $ "great experience"
+experienceSection = 
+    vBox $ experienceBlock <$> workExperiences
 
 educationSection :: Widget ()
 educationSection =
     C.center $
-    txt $ "2015-2016 :: MRes Bioengineering, Imperial College London\nGrade: Distinction\n\n2009 - 2013 :: BEng Process and Chemical Engineering, University College Cork\nGrade: 1.1\n\n "
+    txt $ "2015-2016 :: MRes Bioengineering, Imperial College London\nThesis: Acoustic Particle Palpation for Tissue Elasticity Imaging\nGrade: Distinction\n\n2009 - 2013 :: BEng Process and Chemical Engineering, University College Cork\nGrade: 1.1\n\n "
 
 projectsSection :: Widget ()
 projectsSection =
