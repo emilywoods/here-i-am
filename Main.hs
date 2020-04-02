@@ -71,13 +71,13 @@ contactMe =
 
 aboutSection :: Widget ()
 aboutSection =
-    C.vCenter (str "Hello, my name is Emily 👋.\n\nI am an engineer, mostly of software these days.\n\nI started out as a Process Engineer, took a detour into Bioengineering\nand ended up in Software. Most recently, I am a backend developer and\ninfrastructure engineer.\n\nI also do technical writing and help organise PyLadies Berlin.\n\nMy non-coding hobbies include bumbling around bookstores,\ntrying to keep plants alive, and learning new things.📚 🌱")
+    C.vCenter (str "Hello, my name is Emily 👋.\n\nI am an engineer, mostly of software these days.\n\nI started out as a Process Engineer, took a detour into Bioengineering\nand ended up in Software. Most recently, I am a backend developer and\ninfrastructure engineer.\n\nI also do technical writing and help organise PyLadies Berlin.\n\nMy non-coding hobbies include bumbling around bookstores,\ntrying to keep plants alive, sewing, and generally learning new things.📚 🌱")
     <=> contactMe
 
 skillsSection :: Widget ()
 skillsSection =
     C.center $
-    txt $ "good skills"
+    txt $ "Skills, Interests, Volunteering."
 
 experienceSection :: Widget ()
 experienceSection =
@@ -87,7 +87,7 @@ experienceSection =
 educationSection :: Widget ()
 educationSection =
     C.center $
-    txt $ "lots of learning"
+    txt $ "2015-2016 :: MRes Bioengineering, Imperial College London\nGrade: Distinction\n\n2009 - 2013 :: BEng Process and Chemical Engineering, University College Cork\nGrade: 1.1\n\n "
 
 projectsSection :: Widget ()
 projectsSection =
