@@ -16,6 +16,8 @@ import Brick.Types
 import Brick.Widgets.Core
   ( (<=>)
   , (<+>)
+  , vLimit
+  , hLimit
   , padAll
   , txt
   , str
@@ -57,12 +59,20 @@ theMap = A.attrMap V.defAttr
 introduction :: Widget ()
 introduction =
     C.center $
-    txt $ "Hello, my name is Emily 👋.\n\n Press the arrow keys to explore the different sections. To leave click 'q' or 'esc'"
+    txt $ "Emily's resume.\n\nTo explore the different sections, click ← or →. To exit, click q or esc"
+
+contactMe :: Widget ()
+contactMe =
+    B.borderWithLabel (str "How to reach me") $
+    hLimit 50 $
+    vLimit 8 $
+    C.hCenter $
+    txt $ "\n\n  Website: https://emilywoods.me  \n\n  Email: hello@emilywoods.me  \n\n  Github: emilywoods  \n\n"
 
 aboutSection :: Widget ()
 aboutSection =
-    C.center $
-    txt $ "Hello, my name is Emily 👋.\n\nI am an engineer.\n\nI started out as a Process Engineer, took a detour into Bioengineering\nand ended up in Software. I am a backend developer and\ninfrastructure engineer these days.\n\nMy non-coding hobbies include bumbling around bookstores,\ntrying to keep plants alive, and learning new things.📚 🌱"
+    C.vCenter (str "Hello, my name is Emily 👋.\n\nI am an engineer, mostly of software these days.\n\nI started out as a Process Engineer, took a detour into Bioengineering\nand ended up in Software. Most recently, I am a backend developer and\ninfrastructure engineer.\n\nI also do technical writing and help organise PyLadies Berlin.\n\nMy non-coding hobbies include bumbling around bookstores,\ntrying to keep plants alive, and learning new things.📚 🌱")
+    <=> contactMe
 
 skillsSection :: Widget ()
 skillsSection =
