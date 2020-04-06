@@ -20,7 +20,9 @@ import Brick.Widgets.Core
   , vLimitPercent
   , hLimit
   , vBox
+  , hBox
   , padAll
+  , withBorderStyle
   , txt
   , str
   )
@@ -64,13 +66,70 @@ contactMe =
 
 aboutSection :: Widget ()
 aboutSection =
-    C.vCenter (str "Hello, my name is Emily 👋.\n\nI am an engineer, mostly of software these days.\n\nI started out as a Process Engineer, took a detour into Bioengineering\nand ended up in Software. Most recently, I am a backend developer and\ninfrastructure engineer.\n\nI also do technical writing and help organise PyLadies Berlin.\n\nMy non-coding hobbies include bumbling around bookstores,\ntrying to keep plants alive, sewing, and generally learning new things.📚 🌱")
+    C.vCenter (str "Hello, my name is Emily 👋.\n\nI am an engineer, mostly of software these days.\n\nI started out as a Process Engineer, took a detour into Bioengineering\nand ended up in Software. Most recently, I am a backend developer and\ninfrastructure engineer.\n\nI also do technical writing and help organise PyLadies Berlin.\n\nMy non-coding hobbies include bumbling around bookstores, drinking tea\ntrying to keep plants alive, sewing, and generally learning new things.📚 🌱")
     <=> contactMe
+
+
+-- Skills
+
+technologies :: String
+technologies = unlines[ "Languages"
+    , "- Python"
+    , "- Java"
+    , " "
+    , "Databases"
+    , "- CrateDB"
+    , " "
+    , "Message Processing"
+    , "- Kafka "
+    , "- Azure IoT Hub and Event Hubs"
+    , " "
+    , "Infrastructure"
+    , "- Docker"
+    , "- Terraform"
+    , "- SaltStack"
+    , "- Kubernetes"
+    , "- Prometheus"
+    , "- AWS"
+    , "- Azure"
+    ]
+
+interests :: String
+interests = unlines[ "- Distributed systems"
+    , "- Test driven development"
+    , "- Scalable infrastructure"
+    , "- Technical writing"
+    , "- Creative coding"
+    ]
+
+other :: String
+other = unlines [ "- Coach at Django Girls Berlin"
+    , "- Organiser at PyLadies Berlin"
+    , "- Blog posts and writing at\nhttps://emilywoods.me/blog"
+    ]
+
+skillsSections :: [(String, String)]
+skillsSections =
+    [ ("technologies", technologies)
+    , ("interests", interests)
+    , ("other", other)
+    ]
+
+skillsBlocks :: [Widget ()]
+skillsBlocks = skillsBlock <$> skillsSections
+
+skillsBlock :: (String, String) -> Widget ()
+skillsBlock (skillTitle, content) =
+    withBorderStyle BS.unicodeRounded $
+    B.borderWithLabel (str skillTitle) $
+    C.center $
+    str $ content
 
 skillsSection :: Widget ()
 skillsSection =
-    C.center $
-    txt $ "Skills, Interests, Volunteering."
+    hBox skillsBlocks
+
+-- Work Experience
 
 workExperiences :: [T.Text]
 workExperiences =
@@ -112,7 +171,6 @@ lookingForList =
     , "◦ Interesting infrastructure and backend challenges"
     , "◦ Opportunities for technical writing"
     , "◦ An environment which values transparency and feedback"
-    , "◦ A place which encourages learning, knowledge-sharing and mentorship"
     ]
 
 lookingForBlock :: T.Text -> Widget ()
@@ -120,7 +178,7 @@ lookingForBlock lookingForText =
     C.center $ txt $ "  " <> lookingForText <> "  \n"
 
 lookingForSection :: Widget ()
-lookingForSection = vLimitPercent 95 $ vBox [ C.center $ vBox [ str "This is what I am looking for:\n\n"]
+lookingForSection = vLimitPercent 95 $ vBox [ C.center $ vBox [ str "This is what I am looking for:"]
           , vLimitPercent 70 $ vBox $ lookingForBlock <$> lookingForList
           ]
 
