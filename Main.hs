@@ -17,6 +17,7 @@ import Brick.Widgets.Core
   ( (<=>)
   , (<+>)
   , vLimit
+  , vLimitPercent
   , hLimit
   , vBox
   , padAll
@@ -46,10 +47,12 @@ theMap = A.attrMap V.defAttr
     , (D.buttonSelectedAttr, V.brightMagenta `on` V.black)
     ]
 
+-- Introduction
+
 introduction :: Widget ()
 introduction =
     C.center $
-    txt $ "Emily's resume.\n\nTo explore the different sections, click ← or →. To exit, click q or esc"
+    txt $ "Welcome to Emily's resume!\n\nTo explore the different sections, click ← or →. To exit, click q or esc"
 
 contactMe :: Widget ()
 contactMe =
@@ -85,21 +88,41 @@ experienceSection :: Widget ()
 experienceSection = 
     vBox $ experienceBlock <$> workExperiences
 
+-- Education
+
 educationSection :: Widget ()
 educationSection =
     C.center $
     txt $ "2015-2016 :: MRes Bioengineering, Imperial College London\nThesis: Acoustic Particle Palpation for Tissue Elasticity Imaging\nGrade: Distinction\n\n2009 - 2013 :: BEng Process and Chemical Engineering, University College Cork\nGrade: 1.1\n\n "
 
+-- Projects I've worked on
+
 projectsSection :: Widget ()
 projectsSection =
     C.center $
+    padAll 10 $
     txt $ "look at what else i've made 👀"
 
+-- Looking for
 
-objectiveSection :: Widget ()
-objectiveSection =
-    C.center $
-    txt $ "this is what i want!"
+lookingForList :: [T.Text]
+lookingForList =
+    [ "◦ An asynchronous, remote-first environment"
+    , "◦ To build technology that has a positive impact"
+    , "◦ Interesting infrastructure and backend challenges"
+    , "◦ Opportunities for technical writing"
+    , "◦ An environment which values transparency and feedback"
+    , "◦ A place which encourages learning, knowledge-sharing and mentorship"
+    ]
+
+lookingForBlock :: T.Text -> Widget ()
+lookingForBlock lookingForText =
+    C.center $ txt $ "  " <> lookingForText <> "  \n"
+
+lookingForSection :: Widget ()
+lookingForSection = vLimitPercent 95 $ vBox [ C.center $ vBox [ str "This is what I am looking for:\n\n"]
+          , vLimitPercent 70 $ vBox $ lookingForBlock <$> lookingForList
+          ]
 
 selection :: D.Dialog Choice -> Widget ()  
 selection d  
@@ -108,7 +131,7 @@ selection d
     | D.dialogSelection d == Just Experience = experienceSection
     | D.dialogSelection d == Just Education = educationSection
     | D.dialogSelection d == Just Projects = projectsSection
-    | D.dialogSelection d == Just Objective = objectiveSection
+    | D.dialogSelection d == Just Objective = lookingForSection
     | otherwise   = introduction 
 
 drawUI :: D.Dialog Choice -> [Widget ()]
