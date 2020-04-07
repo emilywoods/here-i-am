@@ -156,11 +156,24 @@ educationSection =
 
 -- Projects I've worked on
 
-projectsSection :: Widget ()
-projectsSection =
+projects :: [(String, String)]
+projects =
+    [ ("Leabharlann", "A Rust-based CLI tool to keep track of books I'm reading or want to read") 
+    , ("Nature of Corrode", "Creative code sketches written in Rust")
+    , ("A dhéanamh", "A Python-based tool for keeping organised")
+    , ("Emerald", "A Ruby Language with Lisp Syntax")
+    ]
+
+projectBlock :: (String, String) -> Widget ()
+projectBlock (projectTitle, content) =
+    withBorderStyle BS.unicodeRounded $
+    B.borderWithLabel (str projectTitle) $
     C.center $
-    padAll 10 $
-    txt $ "look at what else i've made 👀"
+    str $ content
+
+projectsSection :: Widget ()
+projectsSection = 
+    vBox $ projectBlock <$> projects
 
 -- Looking for
 
@@ -226,5 +239,3 @@ main :: IO ()
 main = do
     d <- M.defaultMain theApp initialState
     putStrLn "Goodbye!"
-
-
