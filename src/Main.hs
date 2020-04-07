@@ -45,9 +45,10 @@ appEvent d _ = M.continue d
 
 theMap :: A.AttrMap
 theMap = A.attrMap V.defAttr
-    [ (D.buttonAttr, V.cyan `on` V.black)
-    , (D.buttonSelectedAttr, V.brightMagenta `on` V.black)
+    [ (D.buttonAttr, fg V.cyan)
+    , (D.buttonSelectedAttr, V.yellow `on` V.black)
     ]
+
 
 -- Introduction
 

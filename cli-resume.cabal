@@ -18,7 +18,7 @@ build-type:          Simple
 extra-source-files:  CHANGELOG.md
 
 executable cli-resume
-  main-is:             Main.hs
+  main-is:             src/Main.hs
   -- other-modules:
   -- other-extensions:
   build-depends:       base >=4.11 && <4.14
