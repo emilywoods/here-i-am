@@ -1,36 +1,23 @@
-{-# LANGUAGE CPP #-}
+{-# LANGUAGE CPP               #-}
 {-# LANGUAGE OverloadedStrings #-}
 module Main where
 
-import qualified Data.Text as T
-import qualified Graphics.Vty as V
+import qualified Data.Text                  as T
+import qualified Graphics.Vty               as V
 
-import qualified Brick.Widgets.Dialog as D
-import qualified Brick.Main as M
-import Brick.Util (fg, on)
-import qualified Brick.AttrMap as A
-import Brick.Types
-  ( Widget
-  , BrickEvent(..)
-  )
-import Brick.Widgets.Core
-  ( (<=>)
-  , (<+>)
-  , vLimit
-  , vLimitPercent
-  , hLimit
-  , vBox
-  , hBox
-  , padAll
-  , withBorderStyle
-  , txt
-  , str
-  )
+import qualified Brick.AttrMap              as A
+import qualified Brick.Main                 as M
+import           Brick.Types                (BrickEvent (..), Widget)
+import           Brick.Util                 (fg, on)
+import           Brick.Widgets.Core         (hBox, hLimit, padAll, str, txt,
+                                             vBox, vLimit, vLimitPercent,
+                                             withBorderStyle, (<+>), (<=>))
+import qualified Brick.Widgets.Dialog       as D
 
-import qualified Brick.Types as T
-import qualified Brick.Widgets.Center as C
-import qualified Brick.Widgets.Border as B
+import qualified Brick.Types                as T
+import qualified Brick.Widgets.Border       as B
 import qualified Brick.Widgets.Border.Style as BS
+import qualified Brick.Widgets.Center       as C
 
 data Choice = Home | About | Skills | Experience | Education | Projects | LookingFor 
           deriving (Show, Eq)
@@ -38,9 +25,9 @@ data Choice = Home | About | Skills | Experience | Education | Projects | Lookin
 appEvent :: D.Dialog Choice -> BrickEvent () e -> T.EventM () (T.Next (D.Dialog Choice))
 appEvent d (VtyEvent ev) =
     case ev of
-        V.EvKey V.KEsc [] -> M.halt d
+        V.EvKey V.KEsc []        -> M.halt d
         V.EvKey (V.KChar 'q') [] -> M.halt d
-        _ -> M.continue =<< D.handleDialogEvent ev d
+        _                        -> M.continue =<< D.handleDialogEvent ev d
 appEvent d _ = M.continue d
 
 theMap :: A.AttrMap
@@ -144,7 +131,7 @@ experienceBlock experienceText =
     C.center $ padAll 1 $ txt $ "  " <> experienceText <> "  "
 
 experienceSection :: Widget ()
-experienceSection = 
+experienceSection =
     vBox $ experienceBlock <$> workExperiences
 
 -- Education
@@ -158,7 +145,7 @@ educationSection =
 
 projects :: [(String, String)]
 projects =
-    [ ("Leabharlann", "A Rust-based CLI tool to keep track of books I'm reading or want to read") 
+    [ ("Leabharlann", "A Rust-based CLI tool to keep track of books I'm reading or want to read")
     , ("Nature of Corrode", "Creative code sketches written in Rust")
     , ("A dhéanamh", "A Python-based tool for keeping organised")
     , ("Emerald", "A Ruby Language with Lisp Syntax")
@@ -172,7 +159,7 @@ projectBlock (projectTitle, content) =
     str $ content
 
 projectsSection :: Widget ()
-projectsSection = 
+projectsSection =
     vBox $ projectBlock <$> projects
 
 -- Looking for
@@ -195,8 +182,8 @@ lookingForSection = vLimitPercent 95 $ vBox [ C.center $ vBox [ str "What I look
           , vLimitPercent 70 $ vBox $ lookingForBlock <$> lookingForList
           ]
 
-selection :: D.Dialog Choice -> Widget ()  
-selection d  
+selection :: D.Dialog Choice -> Widget ()
+selection d
     | D.dialogSelection d == Just About = aboutSection
     | D.dialogSelection d == Just Skills = skillsSection
     | D.dialogSelection d == Just Experience = experienceSection
@@ -204,6 +191,7 @@ selection d
     | D.dialogSelection d == Just Projects = projectsSection
     | D.dialogSelection d == Just LookingFor = lookingForSection
     | otherwise   = introduction 
+
 
 drawUI :: D.Dialog Choice -> [Widget ()]
 drawUI d = [ui]
