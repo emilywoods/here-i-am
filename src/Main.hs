@@ -32,7 +32,7 @@ import qualified Brick.Widgets.Center as C
 import qualified Brick.Widgets.Border as B
 import qualified Brick.Widgets.Border.Style as BS
 
-data Choice = Home | About | Skills | Experience | Education | Projects | Objective 
+data Choice = Home | About | Skills | Experience | Education | Projects | LookingFor 
           deriving (Show, Eq)
 
 appEvent :: D.Dialog Choice -> BrickEvent () e -> T.EventM () (T.Next (D.Dialog Choice))
@@ -54,7 +54,7 @@ theMap = A.attrMap V.defAttr
 introduction :: Widget ()
 introduction =
     C.center $
-    txt $ "Welcome to Emily's resume!\n\nTo explore the different sections, click ← or →. To exit, click q or esc"
+    txt $ "Welcome to Emily's resume!\n\nTo explore the different sections, click ← or →. To exit, click q or esc."
 
 contactMe :: Widget ()
 contactMe =
@@ -66,7 +66,7 @@ contactMe =
 
 aboutSection :: Widget ()
 aboutSection =
-    C.vCenter (str "Hello, my name is Emily 👋.\n\nI am an engineer, mostly of software these days.\n\nI started out as a Process Engineer, took a detour into Bioengineering\nand ended up in Software. Most recently, I am a backend developer and\ninfrastructure engineer.\n\nI also do technical writing and help organise PyLadies Berlin.\n\nMy non-coding hobbies include bumbling around bookstores, drinking tea\ntrying to keep plants alive, sewing, and generally learning new things.📚 🌱")
+    C.vCenter (str "Hello, my name is Emily 👋.\n\nI am an engineer, mostly of software these days.\n\nI started out as a Process Engineer, took a detour into Bioengineering\nand ended up in Software. Most recently, I am a backend developer and\ninfrastructure engineer.\n\nI also like to do technical writing and help organise PyLadies Berlin.\n\nMy non-coding hobbies include bumbling around bookstores, drinking tea,\ntrying to keep plants alive, and generally learning new things.📚 🌱")
     <=> contactMe
 
 
@@ -183,7 +183,7 @@ lookingForList =
     , "◦ To build technology that has a positive impact"
     , "◦ Interesting infrastructure and backend challenges"
     , "◦ Opportunities for technical writing"
-    , "◦ An environment which values transparency and feedback"
+    , "◦ An environment which values transparency and feedback\n"
     ]
 
 lookingForBlock :: T.Text -> Widget ()
@@ -191,7 +191,7 @@ lookingForBlock lookingForText =
     C.center $ txt $ "  " <> lookingForText <> "  \n"
 
 lookingForSection :: Widget ()
-lookingForSection = vLimitPercent 95 $ vBox [ C.center $ vBox [ str "This is what I am looking for:"]
+lookingForSection = vLimitPercent 95 $ vBox [ C.center $ vBox [ str "What I look for:"]
           , vLimitPercent 70 $ vBox $ lookingForBlock <$> lookingForList
           ]
 
@@ -202,7 +202,7 @@ selection d
     | D.dialogSelection d == Just Experience = experienceSection
     | D.dialogSelection d == Just Education = educationSection
     | D.dialogSelection d == Just Projects = projectsSection
-    | D.dialogSelection d == Just Objective = lookingForSection
+    | D.dialogSelection d == Just LookingFor = lookingForSection
     | otherwise   = introduction 
 
 drawUI :: D.Dialog Choice -> [Widget ()]
@@ -220,7 +220,7 @@ initialState = D.dialog (Just " ✨ Here I am ✨ ") (Just (0, choices)) 500
                   , ("Experience", Experience)
                   , ("Education", Education)
                   , ("Projects", Projects)
-                  , ("Objective", Objective)
+                  , ("Looking For", LookingFor)
                   ]
 
 
