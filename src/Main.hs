@@ -10,7 +10,7 @@ import qualified Brick.Main                 as M
 import           Brick.Types                (BrickEvent (..), Widget)
 import           Brick.Util                 (fg, on)
 import           Brick.Widgets.Core         (hBox, hLimit, padAll, str, txt,
-                                             vBox, vLimit, vLimitPercent,
+                                             vBox, vLimit, vLimitPercent, withAttr, updateAttrMap,
                                              withBorderStyle, (<+>), (<=>))
 import qualified Brick.Widgets.Dialog       as D
 
@@ -30,8 +30,17 @@ appEvent d (VtyEvent ev) =
         _                        -> M.continue =<< D.handleDialogEvent ev d
 appEvent d _ = M.continue d
 
-theMap :: A.AttrMap
-theMap = A.attrMap V.defAttr
+titleAttr :: A.AttrName
+titleAttr = "title"
+
+borderMappings :: [(A.AttrName, V.Attr)]
+borderMappings = [
+     (B.borderAttr,        fg  V.cyan)
+     , (titleAttr,     fg  V.yellow)
+    ]
+
+dialogMap :: A.AttrMap
+dialogMap = A.attrMap V.defAttr
     [ (D.buttonAttr, fg V.cyan)
     , (D.buttonSelectedAttr, V.yellow `on` V.magenta)
     ]
@@ -41,11 +50,12 @@ theMap = A.attrMap V.defAttr
 introduction :: Widget ()
 introduction =
     C.center $
-    txt $ "Welcome to Emily's resume!\n\nTo explore the different sections, click ← or →. To exit, click q or esc."
+    txt $ "Welcome to Emily's resume!\n\nTo explore the different sections, click ← or →.\nTo exit, click q or esc."
 
 contactMe :: Widget ()
 contactMe =
-    B.borderWithLabel (str "How to reach me") $
+    updateAttrMap (A.applyAttrMappings borderMappings) $
+    B.borderWithLabel (withAttr titleAttr $ str "How to reach me") $
     hLimit 50 $
     vLimit 8 $
     C.hCenter $
@@ -82,16 +92,16 @@ technologies = unlines[ "Languages"
     ]
 
 interests :: String
-interests = unlines[ "- Distributed systems"
-    , "- Test driven development"
-    , "- Scalable infrastructure"
-    , "- Technical writing"
+interests = unlines[ "- Distributed systems\n"
+    , "- Test driven development\n"
+    , "- Scalable infrastructure\n"
+    , "- Technical writing\n"
     , "- Creative coding"
     ]
 
-other :: String
-other = unlines [ "- Coach at Django Girls Berlin"
-    , "- Organiser at PyLadies Berlin"
+community :: String
+community = unlines [ "- Coach at Django Girls Berlin\n"
+    , "- Organiser at PyLadies Berlin\n"
     , "- Blog posts and writing at\nhttps://emilywoods.me/blog"
     ]
 
@@ -99,7 +109,7 @@ skillsSections :: [(String, String)]
 skillsSections =
     [ ("technologies", technologies)
     , ("interests", interests)
-    , ("other", other)
+    , ("community involvement", community)
     ]
 
 skillsBlocks :: [Widget ()]
@@ -107,8 +117,9 @@ skillsBlocks = skillsBlock <$> skillsSections
 
 skillsBlock :: (String, String) -> Widget ()
 skillsBlock (skillTitle, content) =
+    updateAttrMap (A.applyAttrMappings borderMappings) $
     withBorderStyle BS.unicodeRounded $
-    B.borderWithLabel (str skillTitle) $
+    B.borderWithLabel (withAttr titleAttr $ str skillTitle) $
     C.center $
     str $ content
 
@@ -127,8 +138,9 @@ workExperiences =
 
 experienceBlock :: T.Text -> Widget ()
 experienceBlock experienceText =
+    updateAttrMap (A.applyAttrMappings borderMappings) $
     B.border $
-    C.center $ padAll 1 $ txt $ "  " <> experienceText <> "  "
+    C.center $ txt $ "  " <> experienceText <> "  "
 
 experienceSection :: Widget ()
 experienceSection =
@@ -136,10 +148,24 @@ experienceSection =
 
 -- Education
 
+education :: String
+education = unlines [ "2015-2016 :: MRes Bioengineering, Imperial College London"
+    , "Thesis: Acoustic Particle Palpation for Tissue Elasticity Imaging"
+    ,"Grade: Distinction"
+    , ""
+    , ""
+    , ""
+    , ""
+    , "2009 - 2013 :: BEng Process and Chemical Engineering, University College Cork"
+    ,"Grade: 1.1"
+    ]
+
 educationSection :: Widget ()
 educationSection =
+    updateAttrMap (A.applyAttrMappings borderMappings) $
+    B.border $
     C.center $
-    txt $ "2015-2016 :: MRes Bioengineering, Imperial College London\nThesis: Acoustic Particle Palpation for Tissue Elasticity Imaging\nGrade: Distinction\n\n2009 - 2013 :: BEng Process and Chemical Engineering, University College Cork\nGrade: 1.1\n\n "
+    str $ education
 
 -- Projects I've worked on
 
@@ -153,8 +179,9 @@ projects =
 
 projectBlock :: (String, String) -> Widget ()
 projectBlock (projectTitle, content) =
+    updateAttrMap (A.applyAttrMappings borderMappings) $
     withBorderStyle BS.unicodeRounded $
-    B.borderWithLabel (str projectTitle) $
+    B.borderWithLabel (withAttr titleAttr $ str projectTitle) $
     C.center $
     str $ content
 
@@ -170,15 +197,15 @@ lookingForList =
     , "◦ To build technology that has a positive impact"
     , "◦ Interesting infrastructure and backend challenges"
     , "◦ Opportunities for technical writing"
-    , "◦ An environment which values transparency and feedback\n"
+    , "◦ An environment which values transparency and feedback"
     ]
 
 lookingForBlock :: T.Text -> Widget ()
-lookingForBlock lookingForText =
-    C.center $ txt $ "  " <> lookingForText <> "  \n"
+lookingForBlock lookingForList =
+    C.center $ txt $ "  " <> lookingForList <> "  "
 
 lookingForSection :: Widget ()
-lookingForSection = vLimitPercent 95 $ vBox [ C.center $ vBox [ str "What I look for:"]
+lookingForSection = vLimitPercent 95 $ vBox [ updateAttrMap (A.applyAttrMappings borderMappings) $ C.center $ vBox [withAttr titleAttr $ str "What I look for:"]
           , vLimitPercent 70 $ vBox $ lookingForBlock <$> lookingForList
           ]
 
@@ -200,7 +227,7 @@ drawUI d = [ui]
             <=> selection d
 
 initialState :: D.Dialog Choice
-initialState = D.dialog (Just " ✨ Here I am ✨ ") (Just (0, choices)) 500
+initialState = D.dialog (Just " ✨ 🍄 🌱 🍵 ✨ ") (Just (0, choices)) 500
     where
         choices = [ ("Home", Home)
                   , ("About", About)
@@ -220,7 +247,7 @@ theApp =
           , M.appChooseCursor = M.neverShowCursor
           , M.appHandleEvent = appEvent
           , M.appStartEvent = return
-          , M.appAttrMap = const theMap
+          , M.appAttrMap = const dialogMap
           }
 
 main :: IO ()
