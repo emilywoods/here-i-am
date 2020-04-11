@@ -10,7 +10,8 @@ import qualified Brick.Main                 as M
 import           Brick.Types                (BrickEvent (..), Widget)
 import           Brick.Util                 (fg, on)
 import           Brick.Widgets.Core         (hBox, hLimit, padAll, str, txt,
-                                             vBox, vLimit, vLimitPercent, withAttr, updateAttrMap,
+                                             updateAttrMap, vBox, vLimit,
+                                             vLimitPercent, withAttr,
                                              withBorderStyle, (<+>), (<=>))
 import qualified Brick.Widgets.Dialog       as D
 
@@ -19,7 +20,7 @@ import qualified Brick.Widgets.Border       as B
 import qualified Brick.Widgets.Border.Style as BS
 import qualified Brick.Widgets.Center       as C
 
-data Choice = Home | About | Skills | Experience | Education | Projects | LookingFor 
+data Choice = Home | About | Skills | Experience | Education | Projects | LookingFor
           deriving (Show, Eq)
 
 appEvent :: D.Dialog Choice -> BrickEvent () e -> T.EventM () (T.Next (D.Dialog Choice))
@@ -35,14 +36,14 @@ titleAttr = "title"
 
 borderMappings :: [(A.AttrName, V.Attr)]
 borderMappings = [
-     (B.borderAttr,        fg  V.cyan)
-     , (titleAttr,     fg  V.yellow)
+     (B.borderAttr,        fg  V.brightMagenta)
+     , (titleAttr,     fg  V.brightYellow)
     ]
 
 dialogMap :: A.AttrMap
 dialogMap = A.attrMap V.defAttr
-    [ (D.buttonAttr, fg V.cyan)
-    , (D.buttonSelectedAttr, V.yellow `on` V.magenta)
+    [ (D.buttonAttr, fg V.brightCyan)
+    , (D.buttonSelectedAttr, V.brightYellow `on` V.magenta)
     ]
 
 -- Introduction
@@ -52,18 +53,37 @@ introduction =
     C.center $
     txt $ "Welcome to Emily's resume!\n\nTo explore the different sections, click ← or →.\nTo exit, click q or esc."
 
+
+contactInfo :: String
+contactInfo = unlines [ ""
+    , "Website: https://emilywoods.me\n"
+    , "Email: hello@emilywoods.me\n"
+    , "Github: emilywoods\n"
+    ]
+
+aboutMe :: String
+aboutMe = unlines [ "Hello, my name is Emily :)\n"
+    , "I am an engineer, mostly of software these days."
+    , "I started out as a Process Engineer, took a detour into Bioengineering"
+    , "and ended up in Software. Most recently, I am a backend developer and"
+    , "infrastructure engineer.\n"
+    , "I also like to do technical writing and help organise PyLadies Berlin.\n"
+    , "My non-coding hobbies include bumbling around bookstores, drinking tea,"
+    , "trying to keep plants alive, and generally learning new things."
+    ]
+
 contactMe :: Widget ()
 contactMe =
     updateAttrMap (A.applyAttrMappings borderMappings) $
     B.borderWithLabel (withAttr titleAttr $ str "How to reach me") $
-    hLimit 50 $
-    vLimit 8 $
+    hLimit 60 $
+    vLimit 10 $
     C.hCenter $
-    txt $ "\n\n  Website: https://emilywoods.me  \n\n  Email: hello@emilywoods.me  \n\n  Github: emilywoods  \n\n"
+    str $ contactInfo
 
 aboutSection :: Widget ()
 aboutSection =
-    C.vCenter (str "Hello, my name is Emily 👋.\n\nI am an engineer, mostly of software these days.\n\nI started out as a Process Engineer, took a detour into Bioengineering\nand ended up in Software. Most recently, I am a backend developer and\ninfrastructure engineer.\n\nI also like to do technical writing and help organise PyLadies Berlin.\n\nMy non-coding hobbies include bumbling around bookstores, drinking tea,\ntrying to keep plants alive, and generally learning new things.📚 🌱")
+    C.vCenter (str aboutMe)
     <=> contactMe
 
 
@@ -205,8 +225,8 @@ lookingForBlock lookingForList =
     C.center $ txt $ "  " <> lookingForList <> "  "
 
 lookingForSection :: Widget ()
-lookingForSection = vLimitPercent 95 $ vBox [ updateAttrMap (A.applyAttrMappings borderMappings) $ C.center $ vBox [withAttr titleAttr $ str "What I look for:"]
-          , vLimitPercent 70 $ vBox $ lookingForBlock <$> lookingForList
+lookingForSection = vBox [ updateAttrMap (A.applyAttrMappings borderMappings) $ C.center $ vBox [withAttr titleAttr $ str "What I look for:"]
+          , vLimitPercent 80 $ vBox $ lookingForBlock <$> lookingForList
           ]
 
 selection :: D.Dialog Choice -> Widget ()
@@ -217,7 +237,7 @@ selection d
     | D.dialogSelection d == Just Education = educationSection
     | D.dialogSelection d == Just Projects = projectsSection
     | D.dialogSelection d == Just LookingFor = lookingForSection
-    | otherwise   = introduction 
+    | otherwise   = introduction
 
 
 drawUI :: D.Dialog Choice -> [Widget ()]
