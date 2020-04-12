@@ -36,14 +36,14 @@ titleAttr = "title"
 
 borderMappings :: [(A.AttrName, V.Attr)]
 borderMappings = [
-     (B.borderAttr,        fg  V.brightMagenta)
-     , (titleAttr,     fg  V.brightYellow)
+     (B.borderAttr,        fg  V.blue)
+     , (titleAttr,     fg  V.cyan)
     ]
 
 dialogMap :: A.AttrMap
 dialogMap = A.attrMap V.defAttr
-    [ (D.buttonAttr, fg V.brightCyan)
-    , (D.buttonSelectedAttr, V.brightYellow `on` V.magenta)
+    [ (D.buttonAttr, fg V.magenta)
+    , (D.buttonSelectedAttr, V.white `on` V.magenta)
     ]
 
 -- Introduction
