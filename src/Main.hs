@@ -171,13 +171,11 @@ experienceSection =
 education :: String
 education = unlines [ "2015-2016 :: MRes Bioengineering, Imperial College London"
     , "Thesis: Acoustic Particle Palpation for Tissue Elasticity Imaging"
-    ,"Grade: Distinction"
     , ""
     , ""
     , ""
     , ""
     , "2009 - 2013 :: BEng Process and Chemical Engineering, University College Cork"
-    ,"Grade: 1.1"
     ]
 
 educationSection :: Widget ()
