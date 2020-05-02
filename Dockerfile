@@ -5,4 +5,4 @@ RUN cabal update
 COPY . /resume
 RUN cabal install
 
-CMD ["cli-resume"]
+CMD ["here-i-am"]
