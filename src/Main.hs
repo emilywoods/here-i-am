@@ -56,7 +56,7 @@ introduction =
 
 contactInfo :: String
 contactInfo = unlines [ ""
-    , "Website: https://emilywoods.me\n"
+    , "Website: https://sometimesemily.codes\n"
     , "Email: hello@emilywoods.me\n"
     , "Github: emilywoods\n"
     ]
@@ -122,7 +122,7 @@ interests = unlines[ "- Distributed systems\n"
 community :: String
 community = unlines [ "- Coach at Django Girls Berlin\n"
     , "- Organiser at PyLadies Berlin\n"
-    , "- Blog posts and writing at\nhttps://emilywoods.me/blog"
+    , "- Blog posts and writing at\nhttps://sometimesemily.codes/posts"
     ]
 
 skillsSections :: [(String, String)]
