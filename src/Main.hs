@@ -62,14 +62,16 @@ contactInfo = unlines [ ""
     ]
 
 aboutMe :: String
-aboutMe = unlines [ "Hello, my name is Emily :)\n"
-    , "I am an engineer, mostly of software these days."
-    , "I started out as a Process Engineer, took a detour into Bioengineering"
-    , "and ended up in Software. Most recently, I am a backend developer and"
-    , "infrastructure engineer.\n"
-    , "I also like to do technical writing and help organise PyLadies Berlin.\n"
-    , "My non-coding hobbies include bumbling around bookstores, drinking tea,"
-    , "trying to keep plants alive, and generally learning new things."
+aboutMe = unlines [ "Hello, I'm Emily. :)\n"
+    , "I'm a senior software engineer, currently working"
+    , "as a site reliability engineer. In previous roles, I've"
+    , "been a backend engineer, sysadmin and even a chemical engineer.\n"
+    , "I like building things (especially tools for developers),"
+    , "automation and scalable infrastructure.\n"
+    , "I help organise Pyladies Berlin and enjoy technical writing.\n"
+    , "When I want a break from computers, I make or upcycle clothes,"
+    , "drink tea or pet my dog. But I have many other short-lived hobbies -"
+    , "there is so much to learn!"
     ]
 
 contactMe :: Widget ()
@@ -90,9 +92,14 @@ aboutSection =
 -- Skills
 
 technologies :: String
-technologies = unlines[ "Languages"
+technologies = unlines[ "Languages I've worked with"
     , "- Python"
     , "- Java"
+    , "- Ruby"
+    , " "
+    , "Languages I would like to do more with"
+    , "- Clojure"
+    , "- Rust"
     , " "
     , "Databases"
     , "- CrateDB"
@@ -104,6 +111,7 @@ technologies = unlines[ "Languages"
     , "Infrastructure"
     , "- Docker"
     , "- Terraform"
+    , "- Helm/Helmfile"
     , "- SaltStack"
     , "- Kubernetes"
     , "- Prometheus"
@@ -116,7 +124,8 @@ interests = unlines[ "- Distributed systems\n"
     , "- Test driven development\n"
     , "- Scalable infrastructure\n"
     , "- Technical writing\n"
-    , "- Creative coding"
+    , "- Creative coding\n"
+    , "- Learning and research!\n"
     ]
 
 community :: String
@@ -151,9 +160,10 @@ skillsSection =
 
 workExperiences :: [T.Text]
 workExperiences =
-    [ "Jan 2018 - April 2020 Crate.io :: Engineer and SysAdmin\n\nCrate.io is the creator of CrateDB, CrateDB Cloud and Crate Analytics Plaform.\nI worked with Python, Kafka, CrateDB, Kubernetes, Azure, Terraform and Saltstack."
-    , "September 2016 - December 2017 The App Business :: Backend Engineer.\n\nThe App Business works with organisations to build products which make the world better.\nI worked with Java, Ruby, Terraform and AWS and used Behavior and Test Driven Development"
-    , "November 2013 - June 2015 PWF :: Operations Engineer.\n\nPWF is a manufacturer of concentrates.\nI managed capital expenditure and operations-based projects within the manufacturing plant."
+    [ "May 2020 - Present Ecosia.org:: Site Reliability Engineer"
+    , "Jan 2018 - April 2020 Crate.io (remote/Berlin):: Backend Engineer and SysAdmin"
+    , "September 2016 - December 2017 The App Business (London):: Associate Backend Engineer"
+    , "November 2013 - June 2015 PWF:: Junior Project and Operations Engineer."
     ]
 
 experienceBlock :: T.Text -> Widget ()
@@ -191,6 +201,8 @@ projects :: [(String, String)]
 projects =
     [ ("Leabharlann", "A Rust-based CLI tool to keep track of books I'm reading or want to read")
     , ("Nature of Corrode", "Creative code sketches written in Rust")
+    , ("Tráta", "A tiny tool for pomodoros")
+    , ("Look-Up", "A small Gleam project to tell you when to look up if you wanna see the space station")
     , ("A dhéanamh", "A Python-based tool for keeping organised")
     , ("Emerald", "A Ruby Language with Lisp Syntax")
     ]
@@ -253,7 +265,7 @@ initialState = D.dialog (Just " ✨ 🍄 🌱 🍵 ✨ ") (Just (0, choices)) 50
                   , ("Experience", Experience)
                   , ("Education", Education)
                   , ("Projects", Projects)
-                  , ("Looking For", LookingFor)
+                  , ("Looks For", LookingFor)
                   ]
 
 
