@@ -90,9 +90,13 @@ aboutSection =
 -- Skills
 
 technologies :: String
-technologies = unlines[ "Languages"
+technologies = unlines[ "Languages I've worked with"
     , "- Python"
     , "- Java"
+    , "- Languages I would like to do more with"
+    , "- Clojure"
+    , "- Rust"
+    , "- Haskell"
     , " "
     , "Databases"
     , "- CrateDB"
@@ -104,6 +108,7 @@ technologies = unlines[ "Languages"
     , "Infrastructure"
     , "- Docker"
     , "- Terraform"
+    , "- Helm/Helmfile"
     , "- SaltStack"
     , "- Kubernetes"
     , "- Prometheus"
@@ -117,6 +122,7 @@ interests = unlines[ "- Distributed systems\n"
     , "- Scalable infrastructure\n"
     , "- Technical writing\n"
     , "- Creative coding"
+    , "- Learning!"
     ]
 
 community :: String
@@ -151,9 +157,9 @@ skillsSection =
 
 workExperiences :: [T.Text]
 workExperiences =
-    [ "Jan 2018 - April 2020 Crate.io :: Engineer and SysAdmin\n\nCrate.io is the creator of CrateDB, CrateDB Cloud and Crate Analytics Plaform.\nI worked with Python, Kafka, CrateDB, Kubernetes, Azure, Terraform and Saltstack."
-    , "September 2016 - December 2017 The App Business :: Backend Engineer.\n\nThe App Business works with organisations to build products which make the world better.\nI worked with Java, Ruby, Terraform and AWS and used Behavior and Test Driven Development"
-    , "November 2013 - June 2015 PWF :: Operations Engineer.\n\nPWF is a manufacturer of concentrates.\nI managed capital expenditure and operations-based projects within the manufacturing plant."
+    [ "Jan 2018 - April 2020 Crate.io (remote/Berlin):: Engineer and SysAdmin\n\nCrate.io is the creator of CrateDB, CrateDB Cloud and Crate Analytics Plaform.\nI worked with Python, Kafka, CrateDB, Kubernetes, Azure, Terraform and Saltstack."
+    , "September 2016 - December 2017 The App Business (London):: Backend Engineer.\n\nThe App Business works with organisations to build products which make the world better.\nI worked with Java, Ruby, Terraform and AWS and used Behavior and Test Driven Development"
+    , "November 2013 - June 2015 PWF :: Operations Engineer (Ireland).\n\nPWF is a manufacturer of concentrates.\nI managed capital expenditure and operations-based projects within the manufacturing plant."
     ]
 
 experienceBlock :: T.Text -> Widget ()
@@ -191,6 +197,8 @@ projects :: [(String, String)]
 projects =
     [ ("Leabharlann", "A Rust-based CLI tool to keep track of books I'm reading or want to read")
     , ("Nature of Corrode", "Creative code sketches written in Rust")
+    , ("Tráta", "A tiny tool for pomodoros")
+    , ("Look-Up", "A small Gleam project to tell you when to look up if you wanna see the space station")
     , ("A dhéanamh", "A Python-based tool for keeping organised")
     , ("Emerald", "A Ruby Language with Lisp Syntax")
     ]
