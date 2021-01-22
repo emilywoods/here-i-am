@@ -15,7 +15,7 @@ docker run -it emilywoods/resume
 Or to build and run the project locally. First clone the repository, and then run:
 
 ```
-$ cabal install && cabal run 
+make run
 ```
 
 This project was inspired by [another Rust-based CV application](https://github.com/maitesin/rust-cv).
