@@ -57,21 +57,20 @@ introduction =
 contactInfo :: String
 contactInfo = unlines [ ""
     , "Website: https://sometimesemily.codes\n"
-    , "Email: hello@emilywoods.me\n"
+    , "Email: hello@sometimesemily.codes\n"
     , "Github: emilywoods\n"
     ]
 
 aboutMe :: String
 aboutMe = unlines [ "Hello, I'm Emily. :)\n"
-    , "I'm a senior software engineer, currently working"
-    , "as a site reliability engineer. In previous roles, I've"
-    , "been a backend engineer, sysadmin and even a chemical engineer.\n"
-    , "I like building things (especially tools for developers),"
-    , "automation and scalable infrastructure.\n"
-    , "I help organise Pyladies Berlin and enjoy technical writing.\n"
-    , "When I want a break from computers, I make or upcycle clothes,"
-    , "drink tea or pet my dog. But I have many other short-lived hobbies -"
-    , "there is so much to learn!"
+    , "I'm a senior software engineer with an interest in backend and platform"
+    , "engineering. I've worked as a platform engineer, a backend developer,"
+    , "and even as a chemical engineer.\n"
+    , "I like building products that can have a positive impact and tools for"
+    , "developers. I appreciate good automation, thoughtful documentation, as"
+    , "well as resilient, simplified infrastructure.\n"
+    , "When I want a break from computers, I can be found making pottery,"
+    , "drinking tea or hanging out with my dog."
     ]
 
 contactMe :: Widget ()
@@ -93,45 +92,52 @@ aboutSection =
 
 technologies :: String
 technologies = unlines[ "Languages I've worked with"
+    , "- Golang"
+    , "- Clojure"
     , "- Python"
     , "- Java"
     , "- Ruby"
     , " "
     , "Languages I would like to do more with"
-    , "- Clojure"
     , "- Rust"
+    , "- Gleam"
     , " "
     , "Databases"
+    , "- PostgreSQL"
     , "- CrateDB"
-    , " "
-    , "Message Processing"
-    , "- Kafka "
-    , "- Azure IoT Hub and Event Hubs"
     , " "
     , "Infrastructure"
     , "- Docker"
     , "- Terraform"
     , "- Helm/Helmfile"
     , "- SaltStack"
+    , "- Nomad"
     , "- Kubernetes"
-    , "- Prometheus"
     , "- AWS"
     , "- Azure"
+    , " "
+    , "Observability Tooling"
+    , "- Honeycomb"
+    , "- Grafana"
+    , "- Prometheus"
+    , "- Datadog"
     ]
 
 interests :: String
 interests = unlines[ "- Distributed systems\n"
-    , "- Test driven development\n"
+    , "- Well-tested systems\n"
+    , "- Thoughtful documentation\n"
     , "- Scalable infrastructure\n"
     , "- Technical writing\n"
+    , "- Developer Tooling\n"
     , "- Creative coding\n"
-    , "- Learning and research!\n"
+    , "- Investigation and research\n"
     ]
 
 community :: String
-community = unlines [ "- Coach at Django Girls Berlin\n"
-    , "- Organiser at PyLadies Berlin\n"
-    , "- Blog posts and writing at\nhttps://sometimesemily.codes/posts"
+community = unlines [ "- Coached at Django Girls Berlin and Rails Girls London\n"
+    , "- Previously an organiser at PyLadies Berlin\n"
+    , "- Taught 'Intro to Computer Science' as a volunteer teacher at Redi School\n"
     ]
 
 skillsSections :: [(String, String)]
@@ -160,10 +166,11 @@ skillsSection =
 
 workExperiences :: [T.Text]
 workExperiences =
-    [ "May 2020 - Present Ecosia.org:: Site Reliability Engineer"
-    , "Jan 2018 - April 2020 Crate.io (remote/Berlin):: Backend Engineer and SysAdmin"
-    , "September 2016 - December 2017 The App Business (London):: Associate Backend Engineer"
-    , "November 2013 - June 2015 PWF:: Junior Project and Operations Engineer."
+    [ "July 2021 - Present CircleCI :: Senior Software Engineer"
+    , "May 2020 - June 2021 Ecosia.org :: Site Reliability Engineer"
+    , "Jan 2018 - April 2020 Crate.io :: Backend Engineer and SysAdmin"
+    , "September 2016 - December 2017 The App Business :: Associate Backend Engineer"
+    , "November 2013 - June 2015 PWF :: Junior Project and Operations Engineer."
     ]
 
 experienceBlock :: T.Text -> Widget ()
@@ -202,7 +209,7 @@ projects =
     [ ("Leabharlann", "A Rust-based CLI tool to keep track of books I'm reading or want to read")
     , ("Nature of Corrode", "Creative code sketches written in Rust")
     , ("Tráta", "A tiny tool for pomodoros")
-    , ("Look-Up", "A small Gleam project to tell you when to look up if you wanna see the space station")
+    , ("Glaze", "A small Gleam pottery diary")
     , ("A dhéanamh", "A Python-based tool for keeping organised")
     , ("Emerald", "A Ruby Language with Lisp Syntax")
     ]

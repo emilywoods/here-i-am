@@ -3,6 +3,7 @@ FROM haskell:8.8.4 as builder
 WORKDIR /app
 COPY . /app
 
+RUN stack init
 RUN stack setup
 RUN stack build --copy-bins
 
